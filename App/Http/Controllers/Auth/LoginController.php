@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\ActivationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Services\ActivationService;
-use App\Models\Users\User;
 
 class LoginController extends Controller
 {
@@ -30,6 +29,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
     protected $activationService;
+    //protected $username = 'username';
 
     /**
      * Create a new controller instance.
@@ -40,7 +40,6 @@ class LoginController extends Controller
     {
         // $this->middleware('guest');
         // $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-        // $this->activationService = $activationService;
         $this->middleware('guest', ['except' => 'logout']);
         $this->activationService = $activationService;
     }

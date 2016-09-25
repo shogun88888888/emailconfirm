@@ -13,8 +13,9 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
+Route::get('user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');
+
 Route::get('/home', 'HomeController@index');
-Route::get('/user/activation/{token}', 'Auth\LoginController@activateUser')->name('user.activate');

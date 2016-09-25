@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Users\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Validator;
-use Illuminate\Http\Request;
+use App\User;
 use App\Services\ActivationService;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -40,8 +40,6 @@ class RegisterController extends Controller
     public function __construct(ActivationService $activationService)
     {
         // $this->middleware('guest');
-        // $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-        // $this->activationService = $activationService;
         $this->middleware('guest', ['except' => 'logout']);
         $this->activationService = $activationService;
     }
@@ -55,7 +53,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -96,7 +93,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
